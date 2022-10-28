@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -24,6 +24,7 @@ class Msg(BaseModel):
 
 @app.get("/")
 async def root():
+    response.headers["access-control-allow-origin"] = "*"
     return {
         "slackUsername": "ibkay998",
         "backend":True,
