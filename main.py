@@ -7,7 +7,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:8080",
-    "https://railway.app"
+    "https://cors-test.codehappy.dev"
 ]
 
 app.add_middleware(
