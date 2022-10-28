@@ -23,7 +23,7 @@ class Msg(BaseModel):
 
 
 @app.get("/")
-async def root():
+async def root(response: Response):
     response.headers["access-control-allow-origin"] = "*"
     return {
         "slackUsername": "ibkay998",
