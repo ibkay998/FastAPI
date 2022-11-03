@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Response
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from enum import Enum
 
 app = FastAPI()
 
@@ -22,6 +23,18 @@ class Msg(BaseModel):
     msg: str
 
 
+class Operations(str, Enum):
+    multiplication = "multiplication"
+    addition = "addition"
+    subtraction = "subtraction"
+
+
+class ShemaResponse(BaseModel):
+    operation_type:Operations
+    x:int
+    y:int
+
+
 @app.get("/")
 async def root(response: Response):
     response.headers["access-control-allow-origin"] = "*"
@@ -31,6 +44,19 @@ async def root(response: Response):
         "age":23,
         "bio":"Hi my name is ibukunoluwa oyeniyi and an aspiring software developer interested both in frontend and backend and I love solving problems"
     }
+
+
+@app.post("/post")
+async def calculate(response: ShemaResponse):
+    x = response.x 
+    y = response.y
+    if response.operation_type == Operations.addition:
+        ans = x + y
+    elif response.operation_type == Operations.subtraction:
+        ans = x - y
+    else:
+        ans = x*y
+    return {"slackUsername":"@ibkay998", "result": ans, "operation_type": response.operation_type}
 
 
 @app.get("/path")
