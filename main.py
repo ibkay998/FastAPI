@@ -46,7 +46,7 @@ async def root(response: Response):
     }
 
 
-@app.post("/post",status_code=201)
+@app.post("/post")
 async def calculate(response: ShemaResponse):
     x = response.x 
     y = response.y
